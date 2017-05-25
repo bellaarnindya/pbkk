@@ -39,7 +39,7 @@
             </div>
             
             <div class="footer">
-                <b>PBKK 2017</b>
+                PBKK 2017
             </div>
         
         

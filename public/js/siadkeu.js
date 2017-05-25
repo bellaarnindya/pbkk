@@ -3,7 +3,6 @@ var app = new Vue({
     data: {
         state: 1,
         navbar: 'navbar-big siad-bg',
-        message: 'test1232',
         sistemInformasi: 'font-size: 2.7em',
         layananStyle: '',
         pillClass: 'pill',

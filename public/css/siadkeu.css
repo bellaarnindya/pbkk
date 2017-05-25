@@ -59,11 +59,11 @@ h1, h1.title, h2, h3, h4, h5, h6 {
 .navbar-big {
     padding: 3rem 0 6rem 0;
     text-align: center;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 .navbar-small {
-    transition: 0.2s;
+    transition: 0.3s;
     padding: 1rem 0 2rem 0;
     text-align: left;
 }
