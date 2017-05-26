@@ -21,6 +21,8 @@ class CreateRekapSuratsTable extends Migration
             $table->string('nomor_surat');
             $table->timestamps();
         });
+
+
     }
 
     /**
