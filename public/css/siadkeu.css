@@ -16,6 +16,7 @@
 body {
     background-color: #eee;
     position: relative;
+    overflow: hidden;
 }
 
 h1, h1.title, h2, h3, h4, h5, h6 {
@@ -191,3 +192,15 @@ h1, h1.title, h2, h3, h4, h5, h6 {
 
 
 
+.slide-enter-active {
+    transition: all .5s ease;
+}
+
+.slide-leave-active {
+    transition: 0s;
+}
+
+.slide-enter, .slide-leave-to {
+    transform: translatex(-20px);
+    opacity: 0;
+}

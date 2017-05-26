@@ -35,167 +35,177 @@
                     </div>
                     <div class="or">or</div>
                 </div>
+                
+                
                 <div v-if="state > 1" class="layanan-big">
-                    <div v-if="state == 2">
-                        <div v-if="isSurat">
-                            <div class="row gutters align-center" style="margin-top:3rem">
-                                <div class="col col-5">
-                                    <center>
-                                        <h4>Saya sudah memiliki kode booking surat</h4>
-                                        <p>Silahkan masukan kode booking surat untuk memeriksa apakah permohonan surat anda sudah disetujui</p>
-                                        <form>
-                                            <input type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
-                                            <a href="#!" class="button primary w100">Periksa Kode Booking Surat</a>
-                                        </form>
-                                    </center>
+                    <transition name="slide">
+                        <div v-if="state == 2">
+                            <div v-if="isSurat">
+                                <div class="row gutters align-center" style="margin-top:3rem">
+                                    <div class="col col-5">
+                                        <center>
+                                            <h4>Saya sudah memiliki kode booking surat</h4>
+                                            <p>Silahkan masukan kode booking surat untuk memeriksa apakah permohonan surat anda sudah disetujui</p>
+                                            <form>
+                                                <input type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
+                                                <a href="#!" class="button primary w100">Periksa Kode Booking Surat</a>
+                                            </form>
+                                        </center>
+                                    </div>
+                                    <div class="col col-1">
+                                    </div>
+                                    <div class="col col-5">
+                                        <center>
+                                            <h4>Saya belum memiliki kode booking surat</h4>
+                                            <p>Silahkan melanjutkan ke tahap selanjutnya dan memasukkan detil permohonan surat apabila kamu belum mendapatkan kode booking surat.</p>
+                                            <a href="#!" class="button primary w100" @click="next()">Minta Permohonan</a>
+                                        </center>
+                                    </div>
                                 </div>
-                                <div class="col col-1">
-                                </div>
-                                <div class="col col-5">
-                                    <center>
-                                        <h4>Saya belum memiliki kode booking surat</h4>
-                                        <p>Silahkan melanjutkan ke tahap selanjutnya dan memasukkan detil permohonan surat apabila kamu belum mendapatkan kode booking surat.</p>
-                                        <a href="#!" class="button primary w100" @click="next()">Minta Permohonan</a>
-                                    </center>
+                            </div>
+                            <div v-if="isInven">
+                                <div class="row gutters align-center" style="margin-top:3rem">
+                                    <div class="col col-5">
+                                        <center>
+                                            <h4>Saya sudah memiliki kode booking inventaris</h4>
+                                            <p>Masukan kode booking inventaris untuk memeriksa apakah peminjaman inventaris anda sudah disetujui</p>
+                                            <form>
+                                                <input type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
+                                                <a href="#!" class="button primary w100">Periksa Kode Booking Inventaris</a>
+                                            </form>
+                                        </center>
+                                    </div>
+                                    <div class="col col-1">
+                                    </div>
+                                    <div class="col col-5">
+                                        <center>
+                                            <h4>Saya belum memiliki kode booking inventaris</h4>
+                                            <p>Silahkan melanjutkan ke tahap selanjutnya dan memasukkan detil peminjaman inventaris apabila kamu belum mendapatkan kode booking inventaris.</p>
+                                            <a href="#!" class="button primary w100" @click="next()">Minta Permohonan</a>
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div v-if="isInven">
-                            <div class="row gutters align-center" style="margin-top:3rem">
-                                <div class="col col-5">
-                                    <center>
-                                        <h4>Saya sudah memiliki kode booking inventaris</h4>
-                                        <p>Masukan kode booking inventaris untuk memeriksa apakah peminjaman inventaris anda sudah disetujui</p>
-                                        <form>
-                                            <input type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
-                                            <a href="#!" class="button primary w100">Periksa Kode Booking Inventaris</a>
-                                        </form>
-                                    </center>
-                                </div>
-                                <div class="col col-1">
-                                </div>
-                                <div class="col col-5">
-                                    <center>
-                                        <h4>Saya belum memiliki kode booking inventaris</h4>
-                                        <p>Silahkan melanjutkan ke tahap selanjutnya dan memasukkan detil peminjaman inventaris apabila kamu belum mendapatkan kode booking inventaris.</p>
-                                        <a href="#!" class="button primary w100" @click="next()">Minta Permohonan</a>
-                                    </center>
-                                </div>
+                    </transition>
+
+                    <transition name="slide">
+                        <div v-if="state == 3">
+                            <div v-if="isSurat">
+                                <form>
+                                    <div class="row gutters">
+                                        <div class="col col-12">
+                                            <div class="form-item">
+                                                <label>Perihal Surat</label>
+                                                <select>
+                                                    <option disabled selected>-</option>
+                                                    <option>Surat Keterangan Aktif Berorganisasi</option>
+                                                    <option>Surat Keterangan Anggota C HMTC</option>
+                                                    <option>Surat Izin Peminjaman Ruangan</option>
+                                                    <option>Surat Izin Keramaian</option>
+                                                    <option>Surat Undangan</option>
+                                                </select>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                        <div class="col col-6">
+                                            <label>Nama Kegiatan</label>
+                                            <input type="text" style="margin-bottom:1rem" placeholder="Nama Kegiatan">
+                                        </div>
+                                        <div class="col col-3">
+                                            <label>Tanggal Mulai</label>
+                                            <input type="date" style="margin-bottom:1rem">
+                                        </div>
+                                        <div class="col col-3">
+                                            <label>Tanggal Selesai</label>
+                                            <input type="date" style="margin-bottom:1rem">
+                                        </div>
+                                        <div class="col col-6">
+                                            <label>Nama Penanggungjawab</label>
+                                            <input type="text" style="margin-bottom:1rem" placeholder="Nama Penanggungjawab">
+                                        </div>
+                                        <div class="col col-6">
+                                            <label>NRP Penanggungjawab</label>
+                                            <input type="number" style="margin-bottom:1rem" placeholder="NRP Penanggungjawab">
+                                        </div>
+                                        <div class="col col-12">
+                                            <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="next()">Submit</a>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
-                    </div>
-                    <div v-if="state == 3">
-                        <div v-if="isSurat">
-                            <form>
-                                <div class="row gutters">
-                                    <div class="col col-12">
-                                        <div class="form-item">
-                                            <label>Perihal Surat</label>
+                            <div v-if="isInven">
+                                <form>
+                                    <div class="row gutters" style="margin-top:2.5rem">
+                                        <div class="col col-6">
+                                            <label>Inventaris yang ingin dipinjam</label>
                                             <select>
                                                 <option disabled selected>-</option>
-                                                <option>Surat Keterangan Aktif Berorganisasi</option>
-                                                <option>Surat Keterangan Anggota C HMTC</option>
-                                                <option>Surat Izin Peminjaman Ruangan</option>
-                                                <option>Surat Izin Keramaian</option>
-                                                <option>Surat Undangan</option>
+                                                <option>Ruang Hima</option>
+                                                <option>Proyektor dan layar</option>
+                                                <option>Speaker</option>
+                                                <option>Foto presiden</option>
+                                                <option>Foto wakil presiden</option>
+                                                <option>Garuda</option>
                                             </select>
                                         </div>
-                                        <hr>
+                                        <div class="col col-3">
+                                            <label>Pinjam dari</label>
+                                            <input type="date" style="margin-bottom:1rem">
+                                        </div>
+                                        <div class="col col-3">
+                                            <label>Pinjam sampai</label>
+                                            <input type="date" style="margin-bottom:1rem">
+                                        </div>
+                                        <div class="col col-6">
+                                            <label>Nama peminjam</label>
+                                            <input type="text" style="margin-bottom:1rem" placeholder="Nama peminjam">
+                                        </div>
+                                        <div class="col col-6">
+                                            <label>NRP peminjam</label>
+                                            <input type="number" style="margin-bottom:1rem" placeholder="NRP peminjam">
+                                        </div>
+                                        <div class="col col-6">
+                                            <label>Foto diri dengan memegang KTM</label>
+                                            <input type="file" style="margin-bottom:1rem" placeholder="Foto">
+                                        </div>
+                                        <div class="col col-12">
+                                            <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="next()">Submit</a>
+                                        </div>
                                     </div>
-                                    <div class="col col-6">
-                                        <label>Nama Kegiatan</label>
-                                        <input type="text" style="margin-bottom:1rem" placeholder="Nama Kegiatan">
-                                    </div>
-                                    <div class="col col-3">
-                                        <label>Tanggal Mulai</label>
-                                        <input type="date" style="margin-bottom:1rem">
-                                    </div>
-                                    <div class="col col-3">
-                                        <label>Tanggal Selesai</label>
-                                        <input type="date" style="margin-bottom:1rem">
-                                    </div>
-                                    <div class="col col-6">
-                                        <label>Nama Penanggungjawab</label>
-                                        <input type="text" style="margin-bottom:1rem" placeholder="Nama Penanggungjawab">
-                                    </div>
-                                    <div class="col col-6">
-                                        <label>NRP Penanggungjawab</label>
-                                        <input type="number" style="margin-bottom:1rem" placeholder="NRP Penanggungjawab">
-                                    </div>
-                                    <div class="col col-12">
-                                        <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="next()">Submit</a>
+                                </form>
+                            </div>
+                        </div>
+                    </transition>
+                        
+                    <transition name="slide">
+                        <div v-if="state == 4">
+                            <div v-if="isSurat">
+                                <div class="row align-center">
+                                    <div class="col col-8" style="margin-top:2rem">
+                                        <center>
+                                            <p>Permohonan permintaan surat sudah kami terima. Dimohon untuk menyimpan kode booking untuk kemudian digunakan untuk mencetak surat apabila permintaan anda sudah disetujui.</p>
+                                            <hr style="width:5rem; border-width:3px">
+                                            <h5><b>Kode Booking Surat</b></h5>
+                                            <h1 style="font-size:500%">5123827</h1>
+                                        </center>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div v-if="isInven">
-                            <form>
-                                <div class="row gutters" style="margin-top:2.5rem">
-                                    <div class="col col-6">
-                                        <label>Inventaris yang ingin dipinjam</label>
-                                        <select>
-                                            <option disabled selected>-</option>
-                                            <option>Ruang Hima</option>
-                                            <option>Proyektor dan layar</option>
-                                            <option>Speaker</option>
-                                            <option>Foto presiden</option>
-                                            <option>Foto wakil presiden</option>
-                                            <option>Garuda</option>
-                                        </select>
+                            </div>
+                            <div v-if="isInven">
+                                <div class="row align-center">
+                                    <div class="col col-8" style="margin-top:2rem">
+                                        <center>
+                                            <p>Permohonan permintaan peminjaman inventaris sudah kami terima. Dimohon untuk menyimpan kode booking untuk kemudian digunakan untuk melihat apabila permohonan peminjaman inventaris anda sudah disetujui.</p>
+                                            <hr style="width:5rem; border-width:3px">
+                                            <h5><b>Kode Booking Inventaris</b></h5>
+                                            <h1 style="font-size:500%">5123827</h1>
+                                        </center>
                                     </div>
-                                    <div class="col col-3">
-                                        <label>Pinjam dari</label>
-                                        <input type="date" style="margin-bottom:1rem">
-                                    </div>
-                                    <div class="col col-3">
-                                        <label>Pinjam sampai</label>
-                                        <input type="date" style="margin-bottom:1rem">
-                                    </div>
-                                    <div class="col col-6">
-                                        <label>Nama peminjam</label>
-                                        <input type="text" style="margin-bottom:1rem" placeholder="Nama peminjam">
-                                    </div>
-                                    <div class="col col-6">
-                                        <label>NRP peminjam</label>
-                                        <input type="number" style="margin-bottom:1rem" placeholder="NRP peminjam">
-                                    </div>
-                                    <div class="col col-6">
-                                        <label>Foto diri dengan memegang KTM</label>
-                                        <input type="file" style="margin-bottom:1rem" placeholder="Foto">
-                                    </div>
-                                    <div class="col col-12">
-                                        <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="next()">Submit</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div v-if="state == 4">
-                        <div v-if="isSurat">
-                            <div class="row align-center">
-                                <div class="col col-8" style="margin-top:2rem">
-                                    <center>
-                                        <p>Permohonan permintaan surat sudah kami terima. Dimohon untuk menyimpan kode booking untuk kemudian digunakan untuk mencetak surat apabila permintaan anda sudah disetujui.</p>
-                                        <hr style="width:5rem; border-width:3px">
-                                        <h5><b>Kode Booking Surat</b></h5>
-                                        <h1 style="font-size:500%">5123827</h1>
-                                    </center>
                                 </div>
                             </div>
                         </div>
-                        <div v-if="isInven">
-                            <div class="row align-center">
-                                <div class="col col-8" style="margin-top:2rem">
-                                    <center>
-                                        <p>Permohonan permintaan peminjaman inventaris sudah kami terima. Dimohon untuk menyimpan kode booking untuk kemudian digunakan untuk melihat apabila permohonan peminjaman inventaris anda sudah disetujui.</p>
-                                        <hr style="width:5rem; border-width:3px">
-                                        <h5><b>Kode Booking Inventaris</b></h5>
-                                        <h1 style="font-size:500%">5123827</h1>
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </transition>
                 </div>
             </div>
             
