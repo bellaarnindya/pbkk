@@ -49,12 +49,47 @@ h1, h1.title, h2, h3, h4, h5, h6 {
     position: relative;
 }
 
+.panel {
+    padding: 2rem;
+    background-color: #fff;
+    min-height: 15rem;
+    margin-bottom: 1rem;
+}
 
 
 
 
 
 
+
+
+.searchbox::-webkit-input-placeholder { 
+    color: #fff;
+    font-style: italic;
+}
+
+.sidebar {
+    position:fixed;
+    z-index: 15;
+    left: 8%;
+    top: 15rem;
+}
+
+.section {
+    margin-top: 7.5rem;
+    z-index: 10;
+    position: relative;
+}
+
+.navbar-admin {
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    width: 100%;
+    background-color: #1c86f2;
+    padding: 2rem 0;
+    color: #fff;
+}
 
 .navbar-big {
     padding: 3rem 0 6rem 0;
