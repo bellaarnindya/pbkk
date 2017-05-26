@@ -35,6 +35,7 @@ class CreateSuratsTable extends Migration
             $table->timestamp('tanggal_sekarang');
             $table->timestamps();
         });
+
     }
 
     /**

@@ -25,6 +25,8 @@ class CreatePemesanansTable extends Migration
             $table->timestamp('tanggal_pemesanan');
             $table->timestamps();
         });
+
+
     }
 
     /**
