@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\surat;
+use App\Jenis_surat;
+use App\Surat;
 use Illuminate\Http\Request;
 
 class SuratController extends Controller
@@ -14,7 +15,8 @@ class SuratController extends Controller
      */
     public function index()
     {
-        //
+        $jenis=Jenis_surat::all();
+        return view ('index', compact('jenis'));
     }
 
     /**
@@ -44,9 +46,9 @@ class SuratController extends Controller
      * @param  \App\surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function show(surat $surat)
+    public function show(Surat $surat)
     {
-        //
+
     }
 
     /**
@@ -55,7 +57,7 @@ class SuratController extends Controller
      * @param  \App\surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function edit(surat $surat)
+    public function edit(Surat $surat)
     {
         //
     }
@@ -78,7 +80,7 @@ class SuratController extends Controller
      * @param  \App\surat  $surat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(surat $surat)
+    public function destroy(Surat $surat)
     {
         //
     }

@@ -99,11 +99,9 @@
                                                 <label>Perihal Surat</label>
                                                 <select>
                                                     <option disabled selected>-</option>
-                                                    <option>Surat Keterangan Aktif Berorganisasi</option>
-                                                    <option>Surat Keterangan Anggota C HMTC</option>
-                                                    <option>Surat Izin Peminjaman Ruangan</option>
-                                                    <option>Surat Izin Keramaian</option>
-                                                    <option>Surat Undangan</option>
+                                                    @foreach($jenis as $j)
+                                                        <option>{{$j->jenis}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <hr>
