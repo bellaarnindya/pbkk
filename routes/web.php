@@ -19,4 +19,4 @@ Route::get('/admin', function () {
     return view('admin');
 });
 
-Route::resource('/', 'SuratController');
+Route::resource('/', 'PemesananController');

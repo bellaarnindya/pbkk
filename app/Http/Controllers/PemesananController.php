@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\pemesanan;
+use App\Pemesanan;
+use App\Inventaris;
+use App\Jenis_surat;
 use Illuminate\Http\Request;
 
 class PemesananController extends Controller
@@ -14,7 +16,9 @@ class PemesananController extends Controller
      */
     public function index()
     {
-        //
+        $inv = Inventaris::all();
+        $jenis=Jenis_surat::all();
+        return view ('index', compact('inv', 'jenis'));
     }
 
     /**

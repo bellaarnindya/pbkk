@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(Jenis_suratTableSeeder::class);
+       // $this->call(Jenis_suratTableSeeder::class);
+        $this->call(InventarisTableSeeder::class);
     }
 }

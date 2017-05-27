@@ -14,7 +14,7 @@ class InventarisController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**

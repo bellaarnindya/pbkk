@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFileColumnToPemesanan extends Migration
+class ModifyingColumns extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddFileColumnToPemesanan extends Migration
      */
     public function up()
     {
-        Schema::table('pemesanans', function (Blueprint $table) {
-            $table->string('file_foto')->nullable();
+        Schema::table('inventaris', function (Blueprint $table) {
+            $table->dropColumn('tipe_inventaris');
+            $table->integer('jumlah_barang');
         });
     }
 

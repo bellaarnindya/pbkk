@@ -15,8 +15,7 @@ class SuratController extends Controller
      */
     public function index()
     {
-        $jenis=Jenis_surat::all();
-        return view ('index', compact('jenis'));
+
     }
 
     /**

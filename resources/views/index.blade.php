@@ -97,10 +97,10 @@
                                         <div class="col col-12">
                                             <div class="form-item">
                                                 <label>Perihal Surat</label>
-                                                <select>
+                                                <select name="jenis_surat">
                                                     <option disabled selected>-</option>
                                                     @foreach($jenis as $j)
-                                                        <option>{{$j->jenis}}</option>
+                                                        <option value="{{$j->id_jenis}}">{{$j->jenis}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -137,14 +137,11 @@
                                     <div class="row gutters" style="margin-top:2.5rem">
                                         <div class="col col-6">
                                             <label>Inventaris yang ingin dipinjam</label>
-                                            <select>
+                                            <select name="inventaris">
                                                 <option disabled selected>-</option>
-                                                <option>Ruang Hima</option>
-                                                <option>Proyektor dan layar</option>
-                                                <option>Speaker</option>
-                                                <option>Foto presiden</option>
-                                                <option>Foto wakil presiden</option>
-                                                <option>Garuda</option>
+                                                @foreach($inv as $j)
+                                                    <option value="{{$j->id_inventaris}}">{{$j->nama_inventaris}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col col-3">
