@@ -6,6 +6,8 @@ use DB;
 use App\Pemesanan;
 use App\Inventaris;
 use App\Jenis_surat;
+use App\Surat;
+use App\Rekap_surat;
 
 use Illuminate\Http\Request;
 
@@ -26,12 +28,18 @@ class PemesananController extends Controller
         return view ('index', compact('inv', 'jenis'));
     }
 
+    //DARI RANI
     public function pinjaminventaris(Request $request)
     {
         $t = time();
         $kode = mt_rand(100000, 999999);
-        $tgl = (date("Y-m-d", $t));
+        
+        
+        $tgl = $request->inputInven['tanggal_pinjam'];
+        $tanggal = substr($tgl, 0, 10);
         $id_inv = $request->inputInven['id_inventaris'];
+    
+    
         $jml = 1;
 
         $i = Inventaris::findOrFail($id_inv);
@@ -41,10 +49,13 @@ class PemesananController extends Controller
             $p = new Pemesanan();
             $p->no_book = $kode;
             $p->id_inventaris = $id_inv;
+            
             $p->nama_pemesan = $request->inputInven['nama_pemesan'];
             $p->nrp_pemesan = $request->inputInven['nrp_pemesan'];
             $p->file_foto = $request->inputInven['file_foto'];
-            $p->tanggal_pemesanan = $tgl;
+            $p->tanggal_pemesanan = $tanggal;
+    
+    
             $p->jumlah_pesan = $jml;
             $p->save();
         }
@@ -82,6 +93,9 @@ class PemesananController extends Controller
                                                 ['status', '=', 1],
                                                 ['inventaris.status_barang', '=', 0]])->get();
         
+        
+        
+
         $data = array(
             'pinjam_inv' => $pinjam_inv,
             'kembali_inv' => $kembali_inv
@@ -89,8 +103,8 @@ class PemesananController extends Controller
         
         $data = json_encode($data);
         return $data;
-        //dd($data);
-        //return view('list', compact('data'));
+    
+    
     }
 
     public function pinjaminv($no_book)
@@ -101,7 +115,6 @@ class PemesananController extends Controller
         $updStatus = DB::table('pemesanans')->where('no_book', '=', $no_book)->update(['status' => 1]);
         $updStatusBrg = DB::table('inventaris')->where('id_inventaris', '=', $id_pinjam)->update(['status_barang' => 0]);
 
-        //return redirect('/listInven');
     }
 
     public function kembaliinv($no_book)
@@ -111,7 +124,100 @@ class PemesananController extends Controller
 
         $updStatusBrg = DB::table('inventaris')->where('id_inventaris', '=', $id_pinjam)->update(['status_barang' => 1]);
 
-        //return redirect ('/listInven');
+    }
+
+    //DARI UPIK
+    public function pesansurat(Request $request)
+    {
+        $no_book = mt_rand(100000, 999999);
+
+        $id = DB::table('surats')->max('id_surat');
+        $max_id_increment = substr($id, 3, 5);
+        $max_id_increment += 1;
+        if (strlen($max_id_increment) == 1)
+        {
+            $max_id_increment = "00" . $max_id_increment;
+        }   
+        else if (strlen($max_id_increment) == 2)
+        {
+            $max_id_increment = "0" . $max_id_increment;
+        }
+        $id_surat = "SR".$max_id_increment;
+
+        $s = new Surat();
+            $s->id_surat = $id_surat;
+            $s->id_jenis = $request->id_jenis;
+            $s->nama_pemohon = $request->nama_pemohon;
+            $s->nrp_pemohon = $request->nrp_pemohon;
+            $s->tanggal_waktu_mulai = $request->tgl_mulai;
+            $s->tanggal_waktu_selesai = $request->tgl_selesai;
+            $s->kegiatan = $request->kegiatan;
+            $s->save();
+
+        $p = new Pemesanan();
+            $p->no_book = $no_book;
+            $p->id_surat = $id_surat;
+            $p->nama_pemesan = $request->nama_pemohon;
+            $p->nrp_pemesan = $request->nrp_pemohon;
+            $p->save();
+
+        return $no_book;
+    }
+
+    public function ceksurat(Request $request)
+    {
+        $row = pemesanan::find($request->inputBookingSurat);
+        $stat = DB::table('pemesanans')->select('status')->where('no_book', '=', $request->inputBookingSurat)->value('status');
+        if($stat==1){
+            return 1; //kalo setuju
+        }
+        else{
+            return 0; //kalo ga setuju
+        }
+    }
+
+    public function listsurat()
+    {
+        $pinjam_srt = DB::table('pemesanans')->join('surats', 'pemesanans.id_surat', '=', 'surats.id_surat')
+                                            ->where([['pemesanans.id_surat', '<>', NULL],
+                                                ['status', '=', 0]])->get();
+        
+        $pinjam_srt = json_encode($pinjam_srt);
+        return $pinjam_srt;
+        //dd($pinjam_srt);
+        //return view('listacc', compact('pinjam_srt'));
+    }
+
+    public function acc($no_book)
+    {
+        $surat = Pemesanan::findOrFail($pemesanan);
+        DB::table('pemesanans')
+            ->where('no_book', $surat[0]->no_book)
+            ->update(['status' => 1]);
+
+        $id = DB::table('rekap_surats')->max('id_rekap');
+        $max_id_increment = substr($id, 3, 5);
+        $max_id_increment += 1;
+        if (strlen($max_id_increment) == 1)
+        {
+            $max_id_increment = "00" . $max_id_increment;
+        }   
+        else if (strlen($max_id_increment) == 2)
+        {
+            $max_id_increment = "0" . $max_id_increment;
+        }
+        $id_rekap = "RK".$max_id_increment;
+
+        $nomor_surat = DB::table('rekap_surats')->max('nomor_surat');
+        $nomor_surat += 1;
+
+        $rk = new Rekap_surat();
+            $rk->id_rekap = $id_rekap;
+            $rk->id_surat = $surat[0]->id_surat;
+            $rk->nomor_surat = $nomor_surat;
+            $rk->save();
+
+        return redirect('/listSurat');
     }
 
 

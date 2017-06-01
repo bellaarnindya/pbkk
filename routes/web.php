@@ -24,6 +24,7 @@ Route::post('/pesanInven', 'PemesananController@pinjaminventaris');
 Route::post('/cekInven', 'PemesananController@cekbookinginv');
 Route::get('/listInven', 'PemesananController@listinv');
 
+
 Route::get('/listInven/pinjam/{no_book}', ['uses' => 'PemesananController@pinjaminv']);
 Route::get('/listInven/kembali/{no_book}', ['uses' => 'PemesananController@kembaliinv']);
 
@@ -32,6 +33,12 @@ Route::get('/listInven/kembali/{no_book}', ['uses' => 'PemesananController@kemba
 
 
 
+Route::resource('/', 'PemesananController');
+
+//DARI RANI
+
+    
+    
 Route::get('/tes', function(){
 	return view('tes');
 });
@@ -43,4 +50,16 @@ Route::get('/cek', function(){
 
 
 
-Route::resource('/', 'PemesananController');
+//DARI UPIK
+Route::get('/formsurat', function () {
+    return view('formsurat');
+});
+Route::get('/cekstatus', function () {
+    return view('cekstatus');
+});
+Route::get('/listSurat','PemesananController@listsurat');
+
+Route::get('/listSurat/{pemesanan}', ['uses' => 'PemesananController@acc']);
+
+Route::post('/cekSurat','PemesananController@ceksurat');
+Route::post('/pesanSurat','PemesananController@pesansurat');

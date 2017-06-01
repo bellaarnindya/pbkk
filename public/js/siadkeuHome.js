@@ -132,7 +132,19 @@ var app = new Vue({
                 });
             }
             else if(layanan == 'surat') {
-                alert('belom jadi euy');
+                var inputBookingSurat = this.kodeBookingSurat;
+                axios.post('cekSurat', {
+                    inputBookingSurat
+                }).then(function (response) {
+                    //alert('masuk');
+                    app.statusBookingSurat = response.data;
+                    console.log(response.data);
+                    app.next();
+                }).catch(function (error) {
+                    alert(error);
+                    app.statusBookingSurat = '!ERROR';
+                    app.next();
+                });
             }
             //this.next();         
         },

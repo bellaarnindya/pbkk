@@ -48,9 +48,10 @@
                                         <center>
                                             <h4>Saya sudah memiliki kode booking surat</h4>
                                             <p>Silahkan masukan kode booking surat untuk memeriksa apakah permohonan surat anda sudah disetujui</p>
-                                            <form>
-                                                <input type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
-                                                <a href="#!" class="button primary w100" @click="statusCheck()">Periksa Kode Booking Surat</a>
+                                        
+                                            <form method="post" v-on:submit.prevent="statusCheck('surat')">
+                                                <input name="kodeBookingSurat" v-model="kodeBookingSurat" type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
+                                                <button type="submit" class="button primary w100">Periksa Kode Booking Surat</a>
                                             </form>
                                         </center>
                                     </div>
@@ -96,7 +97,13 @@
                         <div v-if="state == 3">
                             <div v-if="isSurat">
                                 <div v-if="isChecking">
-                                    surat sudah bisa di download
+                                    <center style="margin-top:5rem">
+                                        <p>Permohonan pembuatan surat HMTC dengan kode booking:</p>
+                                        <h2 style="font-size:500%">@{{kodeBookingSurat}}</h2>
+                                        <h2 v-show="statusBookingSurat">Sudah Disetujui</h2>
+                                        <a href="#!" v-show="statusBookingSurat" class="button primary large">Download</a>
+                                        <h2 v-show="!statusBookingSurat" style="color:#e80000">Belum Disetujui</h2>
+                                    </center>
                                 </div>
                                 <div v-else-if="!isChecking">
                                     <h5>Formulir Pembuatan Surat</h5>

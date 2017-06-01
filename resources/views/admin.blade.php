@@ -60,7 +60,30 @@
                         <div v-if="section=='surat'">
                             <div class="panel">
                                 <h3>Permohonan Surat</h3>
-                                <p>Lorem ipsum dolor sit amet</p>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Kode Booking</th>
+                                            <th>ID Jenis</th>
+                                            <th>Nama Pemesan</th>
+                                            <th>NRP Pemesan</th>
+                                            <th>Tanggal Pemesanan</th>
+                                            <th>Foto</th>
+                                            <th>Setujui</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="row in surat">
+                                            <td>@{{row.no_book}}</td>
+                                            <td>@{{row.id_jenis}}</td>
+                                            <td>@{{row.nama_pemesan}}</td>
+                                            <td>@{{row.nrp_pemesan}}</td>
+                                            <td>@{{row.tanggal_pemesanan}}</td>
+                                            <td><a href="#!" class="button primary small"><i class="fa fa-photo"></i></a></td>
+                                            <td><a href="#!" class="button primary small" @click="approveInven(row.no_book)"><i class="fa fa-check"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div v-if="section=='inven'">
