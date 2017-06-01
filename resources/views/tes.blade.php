@@ -12,7 +12,8 @@
 
 <div class="container">
   <h2>Vertical (basic) form</h2>
-  <form action="/pesanInven">
+  <form action="/pesanInven" method="POST">
+  <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="form-group">
       <input type="text" name="id_inventaris" class="form-control" placeholder="ID Inventaris">
     </div>

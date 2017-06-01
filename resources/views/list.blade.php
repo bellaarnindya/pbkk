@@ -43,7 +43,7 @@
 </div>
 
 <div class="container">
-  <h2>Permohonan Peminjaman</h2>
+  <h2>Pengembalian Peminjaman</h2>
    
   @if($kembali_inv->count())
   <table class="table">

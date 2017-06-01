@@ -59,10 +59,10 @@ class PemesananController extends Controller
         $c = Pemesanan::findOrFail($kode_book);
         $stat = DB::table('pemesanans')->select('status')->where('no_book', '=', $kode_book)->value('status');
         if($stat==1){
-            $status_pinjam = "true";
+            $status_pinjam = "true"; //kalo disetuji
         }
         else{
-            $status_pinjam = "false";
+            $status_pinjam = "false"; //kalo ga disetujui, masih 0
         }
 
         return($status_pinjam);

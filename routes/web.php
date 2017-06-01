@@ -27,10 +27,11 @@ Route::get('/cek', function(){
 	return view('cek');
 });
 
-
-Route::get('pesanInven', 'PemesananController@pinjaminventaris');
-Route::get('cekkode', 'PemesananController@cekbookinginv');
 Route::get('list', 'PemesananController@listinv');
+
+Route::post('pesanInven', 'PemesananController@pinjaminventaris');
+Route::post('cekkode', 'PemesananController@cekbookinginv');
+
 Route::get('list/pinjam/{no_book}', ['uses' => 'PemesananController@pinjaminv']);
 Route::get('list/kembali/{no_book}', ['uses' => 'PemesananController@kembaliinv']);
 

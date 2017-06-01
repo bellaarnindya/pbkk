@@ -10,9 +10,12 @@
 </head>
 <body>
 
+ 
+
 <div class="container">
   <h2>Vertical (basic) form</h2>
-  <form action="/cekkode">
+  <form action="/cekkode" method="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="form-group">
       <input type="text" name="cek_booking" class="form-control" placeholder="Kode Booking">
     </div>
