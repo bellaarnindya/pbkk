@@ -71,9 +71,10 @@
                                         <center>
                                             <h4>Saya sudah memiliki kode booking inventaris</h4>
                                             <p>Masukan kode booking inventaris untuk memeriksa apakah peminjaman inventaris anda sudah disetujui</p>
-                                            <form>
-                                                <input type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
-                                                <a href="#!" class="button primary w100" @click="statusCheck()">Periksa Kode Booking Inventaris</a>
+                                            <form method="post" v-on:submit.prevent="statusCheck('inven')">
+                                                <input name="kodeBookingInven" v-model="kodeBookingInven" type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
+<!--                                                <a href="#!" class="button primary w100" @click="statusCheck()">Periksa Kode Booking Inventaris</a>-->
+                                                <button type="submit" class="button primary w100">Periksa Kode Booking Inventaris</a>
                                             </form>
                                         </center>
                                     </div>
@@ -273,7 +274,7 @@
                                         
                                         <div class="col col-12">
                                             <button type="submit" class="w100 button primary big" style="margin-top:1rem; text-align:center">Ajukan Permohonan</button>
-<!--                                            <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="pinjamRuang()">Ajukan Permohonan</a>-->
+<!--                                            <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center">Ajukan Permohonan</a>-->
                                         </div>
                                     </form>
                                 </div>
@@ -282,15 +283,20 @@
                             
                             <div v-else-if="isInven">
                                 <div v-if="isChecking">
-                                    inventaris sudah bisa dipinjam
+                                    <center style="margin-top:5rem">
+                                        <p>Peminjaman inventaris HMTC dengan kode booking:</p>
+                                        <h2 style="font-size:500%">@{{kodeBookingInven}}</h2>
+                                        <h2 v-show="statusBookingInven">Sudah Disetujui</h2>
+                                        <h2 v-show="!statusBookingInven" style="color:#e80000">Belum Disetujui</h2>
+                                    </center>
                                 </div>
                                 <div v-else-if="!isChecking">
                                     <h5>Formulir Peminjaman Inventaris</h5>
-                                    <form>
+                                    <form method="POST" v-on:submit.prevent="mintaInven">
                                         <div class="row gutters" style="margin-top:2rem">
                                             <div class="col col-6">
                                                 <label>Inventaris yang ingin dipinjam</label>
-                                                <select name="inventaris" class="small">
+                                                <select name="id_inventaris" v-model="invenForm.id_inventaris" class="small">
                                                     @foreach($inv as $j)
                                                         <option value="{{$j->id_inventaris}}">{{$j->nama_inventaris}}</option>
                                                     @endforeach
@@ -298,22 +304,22 @@
                                             </div>
                                             <div class="col col-6">
                                                 <label>Tanggal peminjaman</label>
-                                                <input type="date" style="margin-bottom:1rem" class="small">
+                                                <input name="tanggal_pinjam" v-model="invenForm.tanggal_pinjam" type="date" style="margin-bottom:1rem" class="small">
                                             </div>
                                             <div class="col col-6">
                                                 <label>Nama peminjam</label>
-                                                <input type="text" style="margin-bottom:1rem" placeholder="Nama peminjam" class="small">
+                                                <input name="nama_pemesan" v-model="invenForm.nama_pemesan" type="text" style="margin-bottom:1rem" placeholder="Nama peminjam" class="small">
                                             </div>
                                             <div class="col col-6">
                                                 <label>NRP peminjam</label>
-                                                <input type="number" style="margin-bottom:1rem" placeholder="NRP peminjam" class="small">
+                                                <input name="nrp_pemesan" v-model="invenForm.nrp_pemesan" type="number" style="margin-bottom:1rem" placeholder="NRP peminjam" class="small">
                                             </div>
                                             <div class="col col-6">
                                                 <label>Foto diri dengan memegang KTM</label>
-                                                <input type="file" style="margin-bottom:1rem" placeholder="Foto" class="small">
+                                                <input name="file_foto" v-model="invenForm.file_foto" type="text" style="margin-bottom:1rem" placeholder="Foto" class="small">
                                             </div>
                                             <div class="col col-12">
-                                                <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="next()">Ajukan Permohonan</a>
+                                                <button type="submit" class="w100 button primary big" style="margin-top:1rem; text-align:center">Ajukan Permohonan</button>
                                             </div>
                                         </div>
                                     </form>
@@ -343,7 +349,7 @@
                                             <p>Permohonan permintaan peminjaman inventaris sudah kami terima. Dimohon untuk menyimpan kode booking untuk kemudian digunakan untuk melihat apabila permohonan peminjaman inventaris anda sudah disetujui.</p>
                                             <hr style="width:5rem; border-width:3px">
                                             <h5><b>Kode Booking Inventaris</b></h5>
-                                            <h1 style="font-size:500%">5123827</h1>
+                                            <h1 style="font-size:500%">@{{kodeBookingInven}}</h1>
                                         </center>
                                     </div>
                                 </div>

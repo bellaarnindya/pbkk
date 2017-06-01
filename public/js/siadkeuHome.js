@@ -27,7 +27,17 @@ var app = new Vue({
             'nama_ketupel':'',
             'nrp_ketupel':''
         },
-        kodeBookingSurat: ''
+        invenForm: {
+            'id_inventaris':'',
+            'nama_pemesan':'',
+            'nrp_pemesan':'',
+            'file_foto':'',
+            'tanggal_pinjam':'',
+        },
+        kodeBookingSurat: '',
+        kodeBookingInven: '',
+        statusBookingSurat: false,
+        statusBookingInven: false
     }, 
     methods: {
         back: function(){
@@ -46,6 +56,8 @@ var app = new Vue({
                 this.isSurat = false;
                 this.isInven = false;
                 this.isChecking = false;
+                this.kodeBookingSurat = '';
+                this.kodeBookingInven = '';
                 this.activeNavbar();
             }
             else if (this.state == 2){
@@ -104,9 +116,25 @@ var app = new Vue({
                 this.next();
             }
         },
-        statusCheck: function(){
+        statusCheck: function(layanan){
             this.isChecking = true;
-            this.next();         
+            if(layanan == 'inven'){
+                var inputBookingInven = this.kodeBookingInven;
+                axios.post('cekInven', {
+                    inputBookingInven
+                }).then(function (response) {
+                    app.statusBookingInven = response.data;
+                    app.next();
+                }).catch(function (error) {
+                    alert(error);
+                    app.statusBookingInven = '!ERROR';
+                    app.next();
+                });
+            }
+            else if(layanan == 'surat') {
+                alert('belom jadi euy');
+            }
+            //this.next();         
         },
         mintaSurat: function(){
             var input = this.suratForm;
@@ -121,6 +149,20 @@ var app = new Vue({
                 app.kodeBookingSurat = '!ERROR';
                 app.next();
             });
-        }
+        },
+        mintaInven: function(){
+            var inputInven = this.invenForm;
+            axios.post('pesanInven', {
+                inputInven
+            }).then(function (response) {
+                //console.log(response.data);
+                app.kodeBookingInven = response.data;
+                app.next();
+            }).catch(function (error) {
+                alert(error);
+                app.kodeBookingInven = '!ERROR';
+                app.next();
+            });
+        },
     }
 });

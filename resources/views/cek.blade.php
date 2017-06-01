@@ -14,8 +14,7 @@
 
 <div class="container">
   <h2>Vertical (basic) form</h2>
-  <form action="/cekInven" method="POST">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+  <form action="{{url('')}}/cekInven" method="POST">
     <div class="form-group">
       <input type="text" name="cek_booking" class="form-control" placeholder="Kode Booking">
     </div>

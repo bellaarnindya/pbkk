@@ -12,7 +12,7 @@ class InventarisTableSeeder extends Seeder
     public function run()
     {
         $inventaris = array("Papan Karambol", "Bendera Himpunan 1 x 1.5", "Bendera Himpunan 3 x 4", "Foto Presiden", "Foto Wakil Presiden", "Foto Garuda", "Tiang Bendera", "Proyektor", "Papan Tulis", "Dispenser");
-        $jumlah = array(1, 10, 1, 1, 1, 1, 5, 1, 1, 1);
+        $jumlah = array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         for($i=0; $i<10;$i++) {
             if (($i+1)<10) $str="IN00";
             else $str="IN0";

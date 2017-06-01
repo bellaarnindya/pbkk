@@ -12,9 +12,4 @@ class testController extends Controller
     
     }
     
-    public function pesanInven(Request $request)
-    {
-        return $request->input['nama_pemohon'];
-    
-    }
 }

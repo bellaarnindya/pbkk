@@ -13,7 +13,7 @@
 <div class="container">
   <h2>Permohonan Peminjaman</h2>
    
-  @if($pinjam_inv->count())
+  @if($data['pinjam_inv']->count())
   <table class="table">
     <thead>
       <tr>
@@ -26,14 +26,14 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($pinjam_inv as $p)
+      @foreach($data['pinjam_inv'] as $p)
       <tr>
         <td>{{$p->no_book}}</td>
         <td>{{$p->nama_inventaris}}</td>
         <td>{{$p->nama_pemesan}}</td>
         <td>{{$p->nrp_pemesan}}</td>
         <td>{{$p->tanggal_pemesanan}}</td>
-        <td><a href="/listInven/pinjam/{{$p->no_book}}" class="btn btn-warning btn-sm" 
+        <td><a href="{{url('')}}/listInven/pinjam/{{$p->no_book}}" class="btn btn-warning btn-sm" 
     role="button"><i class="fa fa-pencil-square"></i>Edit</a></td>
       </tr>
       @endforeach
@@ -45,7 +45,7 @@
 <div class="container">
   <h2>Pengembalian Peminjaman</h2>
    
-  @if($kembali_inv->count())
+  @if($data['kembali_inv']->count())
   <table class="table">
     <thead>
       <tr>
@@ -58,7 +58,7 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($kembali_inv as $k)
+      @foreach($data['kembali_inv'] as $k)
       <tr>
         <td>{{$k->no_book}}</td>
         <td>{{$k->nama_inventaris}}</td>

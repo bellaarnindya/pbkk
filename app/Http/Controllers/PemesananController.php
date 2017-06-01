@@ -16,6 +16,7 @@ class PemesananController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
 
     public function index()
     {
@@ -30,7 +31,7 @@ class PemesananController extends Controller
         $t = time();
         $kode = mt_rand(100000, 999999);
         $tgl = (date("Y-m-d", $t));
-        $id_inv = $request->id_inventaris;
+        $id_inv = $request->inputInven['id_inventaris'];
         $jml = 1;
 
         $i = Inventaris::findOrFail($id_inv);
@@ -40,32 +41,33 @@ class PemesananController extends Controller
             $p = new Pemesanan();
             $p->no_book = $kode;
             $p->id_inventaris = $id_inv;
-            $p->nama_pemesan = $request->nama_pemesan;
-            $p->nrp_pemesan = $request->nrp_pemesan;
-            $p->file_foto = $request->file_foto;
+            $p->nama_pemesan = $request->inputInven['nama_pemesan'];
+            $p->nrp_pemesan = $request->inputInven['nrp_pemesan'];
+            $p->file_foto = $request->inputInven['file_foto'];
             $p->tanggal_pemesanan = $tgl;
             $p->jumlah_pesan = $jml;
-            $p->save();   
+            $p->save();
         }
         else{
-            $kode = "gagal minjam";
+            $kode = "!!ERROR";
         }
-        return($kode); 
+        return $kode; 
     }
 
     public function cekbookinginv(Request $request)
     {
-        $kode_book = $request->cek_booking;
+        //$kode_book = $request->cek_booking;
+        $kode_book = $request->inputBookingInven;
         $c = Pemesanan::findOrFail($kode_book);
         $stat = DB::table('pemesanans')->select('status')->where('no_book', '=', $kode_book)->value('status');
         if($stat==1){
-            $status_pinjam = "true"; //kalo disetuji
+            $status_pinjam = 1; //kalo disetuji
         }
         else{
-            $status_pinjam = "false"; //kalo ga disetujui, masih 0
+            $status_pinjam = 0; //kalo ga disetujui, masih 0
         }
 
-        return($status_pinjam);
+        return $status_pinjam;
     }
 
     public function listinv()
@@ -79,7 +81,16 @@ class PemesananController extends Controller
                                                 ['pemesanans.id_inventaris', '<>', NULL],
                                                 ['status', '=', 1],
                                                 ['inventaris.status_barang', '=', 0]])->get();
-        return view('list', compact('pinjam_inv', 'kembali_inv'));
+        
+        $data = array(
+            'pinjam_inv' => $pinjam_inv,
+            'kembali_inv' => $kembali_inv
+        );
+        
+        $data = json_encode($data);
+        return $data;
+        //dd($data);
+        //return view('list', compact('data'));
     }
 
     public function pinjaminv($no_book)
@@ -90,7 +101,7 @@ class PemesananController extends Controller
         $updStatus = DB::table('pemesanans')->where('no_book', '=', $no_book)->update(['status' => 1]);
         $updStatusBrg = DB::table('inventaris')->where('id_inventaris', '=', $id_pinjam)->update(['status_barang' => 0]);
 
-        return redirect('/listInven');
+        //return redirect('/listInven');
     }
 
     public function kembaliinv($no_book)
@@ -100,7 +111,7 @@ class PemesananController extends Controller
 
         $updStatusBrg = DB::table('inventaris')->where('id_inventaris', '=', $id_pinjam)->update(['status_barang' => 1]);
 
-        return redirect ('/listInven');
+        //return redirect ('/listInven');
     }
 
 

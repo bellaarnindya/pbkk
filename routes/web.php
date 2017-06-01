@@ -20,5 +20,27 @@ Route::get('/admin', function () {
 });
 
 Route::post('/pesanSurat', 'testController@pesanSurat');
+Route::post('/pesanInven', 'PemesananController@pinjaminventaris');
+Route::post('/cekInven', 'PemesananController@cekbookinginv');
+Route::get('/listInven', 'PemesananController@listinv');
+
+Route::get('/listInven/pinjam/{no_book}', ['uses' => 'PemesananController@pinjaminv']);
+Route::get('/listInven/kembali/{no_book}', ['uses' => 'PemesananController@kembaliinv']);
+
+
+
+
+
+
+Route::get('/tes', function(){
+	return view('tes');
+});
+
+Route::get('/cek', function(){
+	return view('cek');
+});
+
+
+
 
 Route::resource('/', 'PemesananController');
