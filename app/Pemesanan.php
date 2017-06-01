@@ -13,4 +13,8 @@ class Pemesanan extends Model
         'no_book','id_surat', 'id_inventaris', 'nama_pemesan', 'nrp_pemesan', 'status'
     ];
 
+    public function inv_peminjaman(){
+    	return $this->belongsTo('App\Inventaris', 'id_inventaris');
+    }
+
 }

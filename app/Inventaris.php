@@ -13,4 +13,8 @@ class Inventaris extends Model
         'id_inventaris', 'nama_inventaris', 'tipe_inventaris'
     ];
 
+     public function peminjaman(){
+    	return $this->hasMany('App\Pemesanan', 'id_inventaris');
+    }
+
 }
