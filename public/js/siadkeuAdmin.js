@@ -1,7 +1,7 @@
 var app = new Vue({
     el: '#app',
     data: {
-        message: 'hello'
+        section: 'statistik'
     },
     methods: {
         redraw: function(){

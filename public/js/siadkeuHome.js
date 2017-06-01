@@ -8,7 +8,7 @@ var app = new Vue({
         pillContent: 'Pilih Layanan',
         isSurat: false,
         isInven: false,
-        isChecking: false,
+        isChecking: false
     }, 
     methods: {
         back: function(){
@@ -28,10 +28,12 @@ var app = new Vue({
                 this.pillContent = 'Pilih layanan';
                 this.isSurat = false;
                 this.isInven = false;
+                this.isChecking = false;
                 this.activeNavbar();
             }
             else if (this.state == 2){
                 this.deactiveNavbar();
+                this.isChecking = false;
                 if (this.isSurat){
                     this.pillContent = 'Pembuatan surat';
                     // kalo dipencet surat
@@ -49,6 +51,9 @@ var app = new Vue({
                 else if (this.isInven){
                     this.pillContent = 'Formulir peminjaman inventaris';
                     // kalo dipencet inven
+                }
+                else if(this.isChecking){
+                    this.pillContent = 'Formulir peminjaman inventaris';
                 }
             }
             else if (this.state == 4){
@@ -81,6 +86,10 @@ var app = new Vue({
                 this.isSurat = true;
                 this.next();
             }
+        },
+        statusCheck: function(){
+            this.isChecking = true;
+            this.next();         
         }
     }
 });

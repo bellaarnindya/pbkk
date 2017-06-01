@@ -17,7 +17,8 @@ class PemesananController extends Controller
     public function index()
     {
         $inv = Inventaris::all();
-        $jenis=Jenis_surat::all();
+        $jenis = Jenis_surat::all();
+        
         return view ('index', compact('inv', 'jenis'));
     }
 

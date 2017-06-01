@@ -48,7 +48,7 @@
                                             <p>Silahkan masukan kode booking surat untuk memeriksa apakah permohonan surat anda sudah disetujui</p>
                                             <form>
                                                 <input type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
-                                                <a href="#!" class="button primary w100">Periksa Kode Booking Surat</a>
+                                                <a href="#!" class="button primary w100" @click="statusCheck()">Periksa Kode Booking Surat</a>
                                             </form>
                                         </center>
                                     </div>
@@ -58,7 +58,7 @@
                                         <center>
                                             <h4>Saya belum memiliki kode booking surat</h4>
                                             <p>Silahkan melanjutkan ke tahap selanjutnya dan memasukkan detil permohonan surat apabila kamu belum mendapatkan kode booking surat.</p>
-                                            <a href="#!" class="button primary w100" @click="next()">Minta Permohonan</a>
+                                            <a href="#!" class="button primary w100" @click="next()">Ajukan Permohonan</a>
                                         </center>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                             <p>Masukan kode booking inventaris untuk memeriksa apakah peminjaman inventaris anda sudah disetujui</p>
                                             <form>
                                                 <input type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
-                                                <a href="#!" class="button primary w100">Periksa Kode Booking Inventaris</a>
+                                                <a href="#!" class="button primary w100" @click="statusCheck()">Periksa Kode Booking Inventaris</a>
                                             </form>
                                         </center>
                                     </div>
@@ -92,83 +92,95 @@
                     <transition name="slide">
                         <div v-if="state == 3">
                             <div v-if="isSurat">
-                                <form>
-                                    <div class="row gutters">
-                                        <div class="col col-12">
-                                            <div class="form-item">
-                                                <label>Perihal Surat</label>
-                                                <select name="jenis_surat">
+                                <div v-if="isChecking">
+                                    surat sudah bisa di download
+                                </div>
+                                <div v-if="!isChecking">
+                                    <h5>Formulir Pembuatan Surat</h5>
+                                    <form>
+                                        <div class="row gutters">
+                                            <div class="col col-12">
+                                                <div class="form-item">
+                                                    <label>Perihal Surat</label>
+                                                    <select name="jenis_surat" class="small">
+                                                        <option disabled selected>-</option>
+                                                        @foreach($jenis as $j)
+                                                            <option value="{{$j->id_jenis}}">{{$j->jenis}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <hr>
+                                            </div>
+                                            <div class="col col-6">
+                                                <label>Nama Kegiatan</label>
+                                                <input type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Kegiatan">
+                                            </div>
+                                            <div class="col col-3">
+                                                <label>Tanggal Mulai</label>
+                                                <input type="date" style="margin-bottom:1rem" class="small">
+                                            </div>
+                                            <div class="col col-3">
+                                                <label>Tanggal Selesai</label>
+                                                <input type="date" style="margin-bottom:1rem" class="small">
+                                            </div>
+                                            <div class="col col-6">
+                                                <label>Nama Penanggungjawab</label>
+                                                <input type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Penanggungjawab">
+                                            </div>
+                                            <div class="col col-6">
+                                                <label>NRP Penanggungjawab</label>
+                                                <input type="number" style="margin-bottom:1rem" class="small" placeholder="NRP Penanggungjawab">
+                                            </div>
+                                            <div class="col col-12">
+                                                <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="next()">Ajukan Permohonan</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div v-if="isInven">
+                                <div v-if="isChecking">
+                                    inventaris sudah bisa dipinjam
+                                </div>
+                                <div v-if="!isChecking">
+                                    <h5>Formulir Peminjaman Inventaris</h5>
+                                    <form>
+                                        <div class="row gutters" style="margin-top:2rem">
+                                            <div class="col col-6">
+                                                <label>Inventaris yang ingin dipinjam</label>
+                                                <select name="inventaris" class="small">
                                                     <option disabled selected>-</option>
-                                                    @foreach($jenis as $j)
-                                                        <option value="{{$j->id_jenis}}">{{$j->jenis}}</option>
+                                                    @foreach($inv as $j)
+                                                        <option value="{{$j->id_inventaris}}">{{$j->nama_inventaris}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <hr>
+                                            <div class="col col-3">
+                                                <label>Pinjam dari</label>
+                                                <input type="date" style="margin-bottom:1rem" class="small">
+                                            </div>
+                                            <div class="col col-3">
+                                                <label>Pinjam sampai</label>
+                                                <input type="date" style="margin-bottom:1rem" class="small">
+                                            </div>
+                                            <div class="col col-6">
+                                                <label>Nama peminjam</label>
+                                                <input type="text" style="margin-bottom:1rem" placeholder="Nama peminjam" class="small">
+                                            </div>
+                                            <div class="col col-6">
+                                                <label>NRP peminjam</label>
+                                                <input type="number" style="margin-bottom:1rem" placeholder="NRP peminjam" class="small">
+                                            </div>
+                                            <div class="col col-6">
+                                                <label>Foto diri dengan memegang KTM</label>
+                                                <input type="file" style="margin-bottom:1rem" placeholder="Foto" class="small">
+                                            </div>
+                                            <div class="col col-12">
+                                                <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="next()">Ajukan Permohonan</a>
+                                            </div>
                                         </div>
-                                        <div class="col col-6">
-                                            <label>Nama Kegiatan</label>
-                                            <input type="text" style="margin-bottom:1rem" placeholder="Nama Kegiatan">
-                                        </div>
-                                        <div class="col col-3">
-                                            <label>Tanggal Mulai</label>
-                                            <input type="date" style="margin-bottom:1rem">
-                                        </div>
-                                        <div class="col col-3">
-                                            <label>Tanggal Selesai</label>
-                                            <input type="date" style="margin-bottom:1rem">
-                                        </div>
-                                        <div class="col col-6">
-                                            <label>Nama Penanggungjawab</label>
-                                            <input type="text" style="margin-bottom:1rem" placeholder="Nama Penanggungjawab">
-                                        </div>
-                                        <div class="col col-6">
-                                            <label>NRP Penanggungjawab</label>
-                                            <input type="number" style="margin-bottom:1rem" placeholder="NRP Penanggungjawab">
-                                        </div>
-                                        <div class="col col-12">
-                                            <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="next()">Submit</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div v-if="isInven">
-                                <form>
-                                    <div class="row gutters" style="margin-top:2.5rem">
-                                        <div class="col col-6">
-                                            <label>Inventaris yang ingin dipinjam</label>
-                                            <select name="inventaris">
-                                                <option disabled selected>-</option>
-                                                @foreach($inv as $j)
-                                                    <option value="{{$j->id_inventaris}}">{{$j->nama_inventaris}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col col-3">
-                                            <label>Pinjam dari</label>
-                                            <input type="date" style="margin-bottom:1rem">
-                                        </div>
-                                        <div class="col col-3">
-                                            <label>Pinjam sampai</label>
-                                            <input type="date" style="margin-bottom:1rem">
-                                        </div>
-                                        <div class="col col-6">
-                                            <label>Nama peminjam</label>
-                                            <input type="text" style="margin-bottom:1rem" placeholder="Nama peminjam">
-                                        </div>
-                                        <div class="col col-6">
-                                            <label>NRP peminjam</label>
-                                            <input type="number" style="margin-bottom:1rem" placeholder="NRP peminjam">
-                                        </div>
-                                        <div class="col col-6">
-                                            <label>Foto diri dengan memegang KTM</label>
-                                            <input type="file" style="margin-bottom:1rem" placeholder="Foto">
-                                        </div>
-                                        <div class="col col-12">
-                                            <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="next()">Submit</a>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </transition>
