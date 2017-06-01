@@ -33,7 +33,7 @@
         <td>{{$p->nama_pemesan}}</td>
         <td>{{$p->nrp_pemesan}}</td>
         <td>{{$p->tanggal_pemesanan}}</td>
-        <td><a href="/list/pinjam/{{$p->no_book}}" class="btn btn-warning btn-sm" 
+        <td><a href="/listInven/pinjam/{{$p->no_book}}" class="btn btn-warning btn-sm" 
     role="button"><i class="fa fa-pencil-square"></i>Edit</a></td>
       </tr>
       @endforeach
@@ -65,7 +65,7 @@
         <td>{{$k->nama_pemesan}}</td>
         <td>{{$k->nrp_pemesan}}</td>
         <td>{{$k->tanggal_pemesanan}}</td>
-        <td><a href="/list/kembali/{{$k->no_book}}" class="btn btn-warning btn-sm" 
+        <td><a href="/listInven/kembali/{{$k->no_book}}" class="btn btn-warning btn-sm" 
     role="button"><i class="fa fa-pencil-square"></i>Edit</a></td>
       </tr>
       @endforeach

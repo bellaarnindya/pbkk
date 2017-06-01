@@ -90,7 +90,7 @@ class PemesananController extends Controller
         $updStatus = DB::table('pemesanans')->where('no_book', '=', $no_book)->update(['status' => 1]);
         $updStatusBrg = DB::table('inventaris')->where('id_inventaris', '=', $id_pinjam)->update(['status_barang' => 0]);
 
-        return redirect('/list');
+        return redirect('/listInven');
     }
 
     public function kembaliinv($no_book)
@@ -100,7 +100,7 @@ class PemesananController extends Controller
 
         $updStatusBrg = DB::table('inventaris')->where('id_inventaris', '=', $id_pinjam)->update(['status_barang' => 1]);
 
-        return redirect ('/list');
+        return redirect ('/listInven');
     }
 
 
