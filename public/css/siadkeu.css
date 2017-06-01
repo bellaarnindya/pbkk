@@ -16,7 +16,7 @@
 body {
     background-color: #eee;
     position: relative;
-    overflow: hidden;
+    //overflow: hidden;
 }
 
 h1, h1.title, h2, h3, h4, h5, h6 {

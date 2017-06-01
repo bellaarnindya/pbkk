@@ -1,3 +1,5 @@
+//Vue.http.headers.common['X-CRSF-TOKEN'] = $('#token').attr('value');
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -9,7 +11,23 @@ var app = new Vue({
         isSurat: false,
         isInven: false,
         isChecking: false,
-        jenisSurat: ''
+        suratForm: {
+            'id_jenis':'',
+            'nama_pemohon':'',
+            'nrp_pemohon':'',
+            'jabatan':'',
+            'angkatan_c':'',
+            'waktu_mulai':'',
+            'waktu_selesai':'',
+            'tanggal_pelaksanaan':'',
+            'kegiatan':'',
+            'tempat_pelaksanaan':'',
+            'tempat_pinjam':'',
+            'tujuan':'',
+            'nama_ketupel':'',
+            'nrp_ketupel':''
+        },
+        kodeBookingSurat: ''
     }, 
     methods: {
         back: function(){
@@ -20,8 +38,6 @@ var app = new Vue({
         },
         next: function(){
             this.state++;
-            if (this.state == 2)
-                this.deactiveNavbar();
             this.redraw();
         },
         redraw: function(){
@@ -91,6 +107,20 @@ var app = new Vue({
         statusCheck: function(){
             this.isChecking = true;
             this.next();         
+        },
+        mintaSurat: function(){
+            var input = this.suratForm;
+            axios.post('pesanSurat', {
+                input
+            }).then(function (response) {
+                //console.log(response.data);
+                app.kodeBookingSurat = response.data;
+                app.next();
+            }).catch(function (error) {
+                alert(error);
+                app.kodeBookingSurat = '!ERROR';
+                app.next();
+            });
         }
     }
 });

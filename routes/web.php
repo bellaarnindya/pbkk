@@ -19,4 +19,6 @@ Route::get('/admin', function () {
     return view('admin');
 });
 
+Route::post('/pesanSurat', 'testController@pesanSurat');
+
 Route::resource('/', 'PemesananController');
