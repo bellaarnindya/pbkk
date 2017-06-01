@@ -98,41 +98,145 @@
                                 <div v-if="!isChecking">
                                     <h5>Formulir Pembuatan Surat</h5>
                                     <form>
-                                        <div class="row gutters">
-                                            <div class="col col-12">
-                                                <div class="form-item">
-                                                    <label>Perihal Surat</label>
-                                                    <select name="jenis_surat" class="small">
-                                                        <option disabled selected>-</option>
-                                                        @foreach($jenis as $j)
-                                                            <option value="{{$j->id_jenis}}">{{$j->jenis}}</option>
-                                                        @endforeach
-                                                    </select>
+                                        <div class="form-item">
+                                            <label>Perihal Surat</label>
+                                            <select name="jenis_surat" class="small" v-model="jenisSurat">
+                                                <option disabled selected>-</option>
+                                                @foreach($jenis as $j)
+                                                    <option value="{{$j->id_jenis}}">{{$j->jenis}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <hr>
+                                        <div v-if="jenisSurat == 'JS001'">
+                                            <div class="row gutters">
+                                                <div class="col col-12">
+                                                    <label>Nama Pemohon</label>
+                                                    <input name="nama" type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Pemohon">
                                                 </div>
-                                                <hr>
+                                                <div class="col col-12">
+                                                    <label>NRP Pemohon</label>
+                                                    <input name="nrp" type="number" style="margin-bottom:1rem" class="small" placeholder="NRP Pemohon">
+                                                </div>
+                                                <div class="col col-12">
+                                                    <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="pinjamRuang()">Ajukan Permohonan</a>
+                                                </div>
                                             </div>
-                                            <div class="col col-6">
-                                                <label>Nama Kegiatan</label>
-                                                <input type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Kegiatan">
+                                        </div>
+                                        <div v-if="jenisSurat == 'JS002'">
+                                            <div class="row gutters">
+                                                <div class="col col-6">
+                                                    <label>Nama Pemohon</label>
+                                                    <input name="nama" type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Pemohon">
+                                                </div>
+                                                <div class="col col-4">
+                                                    <label>NRP Pemohon</label>
+                                                    <input name="nrp" type="number" style="margin-bottom:1rem" class="small" placeholder="NRP Pemohon">
+                                                </div>
+                                                <div class="col col-2">
+                                                    <label>Angkatan C</label>
+                                                    <input name="angkatan" type="text" style="margin-bottom:1rem" class="small" placeholder="Cxx">
+                                                </div>
+                                                <div class="col col-12">
+                                                    <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="pinjamRuang()">Ajukan Permohonan</a>
+                                                </div>
                                             </div>
-                                            <div class="col col-3">
-                                                <label>Tanggal Mulai</label>
-                                                <input type="date" style="margin-bottom:1rem" class="small">
+                                        </div>
+                                        <div v-if="jenisSurat == 'JS003'">
+                                            <div class="row gutters">
+                                                <div class="col col-5">
+                                                    <label>Nama Kegiatan</label>
+                                                    <input name="nama_kegiatan" type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Kegiatan">
+                                                </div>
+                                                <div class="col col-3">
+                                                    <label>Tanggal Kegiatan</label>
+                                                    <input name="tanggal_kegiatan" type="date" style="margin-bottom:1rem" class="small" placeholder="Tanggal Kegiatan">
+                                                </div>
+                                                <div class="col col-2">
+                                                    <label>Waktu Mulai</label>
+                                                    <input name="waktu_mulai" type="time" style="margin-bottom:1rem" class="small" placeholder="Waktu Mulai">
+                                                </div>
+                                                <div class="col col-2">
+                                                    <label>Waktu Selesai</label>
+                                                    <input name="waktu_selesai" type="time" style="margin-bottom:1rem" class="small" placeholder="Waktu Mulai">
+                                                </div>
+                                                <div class="col col-6">
+                                                    <label>Nama Penanggungjawab</label>
+                                                    <input name="nama" type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Penanggungjawab">
+                                                </div>
+                                                <div class="col col-6">
+                                                    <label>NRP Penanggungjawab</label>
+                                                    <input name="nrp" type="number" style="margin-bottom:1rem" class="small" placeholder="NRP Penanggungjawab">
+                                                </div>
+                                                <div class="col col-12">
+                                                    <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="pinjamRuang()">Ajukan Permohonan</a>
+                                                </div>
                                             </div>
-                                            <div class="col col-3">
-                                                <label>Tanggal Selesai</label>
-                                                <input type="date" style="margin-bottom:1rem" class="small">
+                                        </div>
+                                        <div v-if="jenisSurat == 'JS004'">
+                                            <div class="row gutters">
+                                                <div class="col col-5">
+                                                    <label>Nama Kegiatan</label>
+                                                    <input name="nama_kegiatan" type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Kegiatan">
+                                                </div>
+                                                <div class="col col-3">
+                                                    <label>Tanggal Kegiatan</label>
+                                                    <input name="tanggal_kegiatan" type="date" style="margin-bottom:1rem" class="small" placeholder="Tanggal Kegiatan">
+                                                </div>
+                                                <div class="col col-2">
+                                                    <label>Waktu Mulai</label>
+                                                    <input name="waktu_mulai" type="time" style="margin-bottom:1rem" class="small" placeholder="Waktu Mulai">
+                                                </div>
+                                                <div class="col col-2">
+                                                    <label>Waktu Selesai</label>
+                                                    <input name="waktu_selesai" type="time" style="margin-bottom:1rem" class="small" placeholder="Waktu Mulai">
+                                                </div>
+                                                <div class="col col-6">
+                                                    <label>Nama Penanggungjawab</label>
+                                                    <input name="nama" type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Penanggungjawab">
+                                                </div>
+                                                <div class="col col-6">
+                                                    <label>NRP Penanggungjawab</label>
+                                                    <input name="nrp" type="number" style="margin-bottom:1rem" class="small" placeholder="NRP Penanggungjawab">
+                                                </div>
+                                                <div class="col col-12">
+                                                    <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="pinjamRuang()">Ajukan Permohonan</a>
+                                                </div>
                                             </div>
-                                            <div class="col col-6">
-                                                <label>Nama Penanggungjawab</label>
-                                                <input type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Penanggungjawab">
-                                            </div>
-                                            <div class="col col-6">
-                                                <label>NRP Penanggungjawab</label>
-                                                <input type="number" style="margin-bottom:1rem" class="small" placeholder="NRP Penanggungjawab">
-                                            </div>
-                                            <div class="col col-12">
-                                                <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="next()">Ajukan Permohonan</a>
+                                        </div>
+                                        <div v-if="jenisSurat == 'JS005' || jenisSurat == 'JS006'">
+                                            <div class="row gutters">
+                                                <div class="col col-5">
+                                                    <label>Nama Kegiatan</label>
+                                                    <input name="nama_kegiatan" type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Kegiatan">
+                                                </div>
+                                                <div class="col col-3">
+                                                    <label>Tanggal Kegiatan</label>
+                                                    <input name="tanggal_kegiatan" type="date" style="margin-bottom:1rem" class="small" placeholder="Tanggal Kegiatan">
+                                                </div>
+                                                <div class="col col-2">
+                                                    <label>Waktu Mulai</label>
+                                                    <input name="waktu_mulai" type="time" style="margin-bottom:1rem" class="small" placeholder="Waktu Mulai">
+                                                </div>
+                                                <div class="col col-2">
+                                                    <label>Waktu Selesai</label>
+                                                    <input name="waktu_selesai" type="time" style="margin-bottom:1rem" class="small" placeholder="Waktu Mulai">
+                                                </div>
+                                                <div class="col col-5">
+                                                    <label>Nama Penanggungjawab</label>
+                                                    <input name="nama" type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Penanggungjawab">
+                                                </div>
+                                                <div class="col col-3">
+                                                    <label>NRP Penanggungjawab</label>
+                                                    <input name="nrp" type="number" style="margin-bottom:1rem" class="small" placeholder="NRP Penanggungjawab">
+                                                </div>
+                                                <div class="col col-4">
+                                                    <label>Tempat yang dipinjam</label>
+                                                    <input name="tempat" type="text" style="margin-bottom:1rem" class="small" placeholder="Tempat yang dipinjam">
+                                                </div>
+                                                <div class="col col-12">
+                                                    <a href="#!" class="w100 button primary big" style="margin-top:1rem; text-align:center" @click="pinjamRuang()">Ajukan Permohonan</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -155,12 +259,8 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col col-3">
-                                                <label>Pinjam dari</label>
-                                                <input type="date" style="margin-bottom:1rem" class="small">
-                                            </div>
-                                            <div class="col col-3">
-                                                <label>Pinjam sampai</label>
+                                            <div class="col col-6">
+                                                <label>Tanggal peminjaman</label>
                                                 <input type="date" style="margin-bottom:1rem" class="small">
                                             </div>
                                             <div class="col col-6">

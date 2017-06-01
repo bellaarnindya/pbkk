@@ -8,7 +8,8 @@ var app = new Vue({
         pillContent: 'Pilih Layanan',
         isSurat: false,
         isInven: false,
-        isChecking: false
+        isChecking: false,
+        jenisSurat: ''
     }, 
     methods: {
         back: function(){
