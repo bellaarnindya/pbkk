@@ -24,6 +24,9 @@
       <input type="text" name="nrp_pemesan" class="form-control" placeholder="NRP Pemesan">
     </div>
     <div class="form-group">
+      <input type="date" name="tgl_pemesanan" class="form-control" placeholder="Tanggal Pemesanan">
+    </div>
+    <div class="form-group">
       <input type="text" name="file_foto" class="form-control" placeholder="File Foto">
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
