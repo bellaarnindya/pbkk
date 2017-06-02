@@ -59,7 +59,7 @@ Route::get('/cekstatus', function () {
 });
 Route::get('/listSurat','PemesananController@listsurat');
 
-Route::get('/listSurat/{pemesanan}', ['uses' => 'PemesananController@acc']);
+Route::get('/listSurat/{no_book}', ['uses' => 'PemesananController@acc']);
 
 Route::post('/cekSurat','PemesananController@ceksurat');
 Route::post('/pesanSurat','PemesananController@pesansurat');

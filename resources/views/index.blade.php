@@ -73,7 +73,7 @@
                                             <h4>Saya sudah memiliki kode booking inventaris</h4>
                                             <p>Masukan kode booking inventaris untuk memeriksa apakah peminjaman inventaris anda sudah disetujui</p>
                                             <form method="post" v-on:submit.prevent="statusCheck('inven')">
-                                                <input name="kodeBookingInven" v-model="kodeBookingInven" type="text" placeholder="Kode Booking Surat" style="margin-bottom:0.7rem">
+                                                <input name="kodeBookingInven" v-model="kodeBookingInven" type="text" placeholder="Kode Booking Inventaris" style="margin-bottom:0.7rem">
 <!--                                                <a href="#!" class="button primary w100" @click="statusCheck()">Periksa Kode Booking Inventaris</a>-->
                                                 <button type="submit" class="button primary w100">Periksa Kode Booking Inventaris</a>
                                             </form>
