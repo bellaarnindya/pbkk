@@ -136,6 +136,7 @@ class PemesananController extends Controller
         $no_book = mt_rand(100000, 999999);
 
         $id = DB::table('surats')->max('id_surat');
+
         $max_id_increment = substr($id, 3, 5);
         $max_id_increment += 1;
         if (strlen($max_id_increment) == 1)
@@ -147,6 +148,7 @@ class PemesananController extends Controller
             $max_id_increment = "0" . $max_id_increment;
         }
         $id_surat = "SR".$max_id_increment;
+        $id_jenis = $request->input['id_jenis'];
 
         $s = new Surat();
             $s->id_surat = $id_surat;
@@ -164,11 +166,11 @@ class PemesananController extends Controller
             $s->nrp_ketupel = $request->input['nrp_ketupel'];
             $s->angkatan_c = $request->input['angkatan_c'];
             $s->jabatan = $request->input['jabatan'];
-            if ($id_surat=='JS001' || $id_surat=='JS002') $s->perihal = "Surat Keterangan";
-            else if ($id_surat=='JS003') $s->perihal="Permohonan Izin Keramaian";
-            else if ($id_surat=='JS004') $s->perihal="Permohonan Izin Peminjaman Alat Musik";
-            else if ($id_surat=='JS005') $s->perihal="Permohonan Izin Peminjaman Ruang";
-            else if ($id_surat=='JS006') $s->perihal="Permohonan Izin Peminjaman Tempat";
+            if ($id_jenis=='JS001' || $id_jenis=='JS002') $s->perihal = 'Surat Keterangan';
+            else if ($id_jenis=='JS003') $s->perihal='Permohonan Izin Keramaian';
+            else if ($id_jenis=='JS004') $s->perihal='Permohonan Izin Peminjaman Alat Musik';
+            else if ($id_jenis=='JS005') $s->perihal='Permohonan Izin Peminjaman Ruang';
+            else if ($id_jenis=='JS006') $s->perihal='Permohonan Izin Peminjaman Tempat';
 
             $s->save();
 
