@@ -25,7 +25,8 @@ var app = new Vue({
             'tempat_pinjam':'',
             'tujuan':'',
             'nama_ketupel':'',
-            'nrp_ketupel':''
+            'nrp_ketupel':'',
+
         },
         invenForm: {
             'id_inventaris':'',

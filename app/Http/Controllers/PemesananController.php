@@ -129,6 +129,10 @@ class PemesananController extends Controller
     //DARI UPIK
     public function pesansurat(Request $request)
     {
+
+
+        $t = time();
+        $tgl = date("Y-m-d", $t);
         $no_book = mt_rand(100000, 999999);
 
         $id = DB::table('surats')->max('id_surat');
@@ -137,7 +141,7 @@ class PemesananController extends Controller
         if (strlen($max_id_increment) == 1)
         {
             $max_id_increment = "00" . $max_id_increment;
-        }   
+        }
         else if (strlen($max_id_increment) == 2)
         {
             $max_id_increment = "0" . $max_id_increment;
@@ -146,20 +150,20 @@ class PemesananController extends Controller
 
         $s = new Surat();
             $s->id_surat = $id_surat;
-            $s->id_jenis = $request->id_jenis;
-            $s->nama_pemohon = $request->nama_pemohon;
-            $s->nrp_pemohon = $request->nrp_pemohon;
-            $s->tanggal_waktu_mulai = $request->tgl_mulai;
-            $s->tanggal_waktu_selesai = $request->tgl_selesai;
-            $s->kegiatan = $request->kegiatan;
-            $s->tanggal_waktu_pelaksanaan = $request->tgl_pelaksanaan;
-            $s->tempat_pelaksanaan = $request->tempat_pelaksanaan;
-            $s->tempat_pinjam = $request->tempat_pinjam;
-            $s->tujuan = $request->tujuan;
-            $s->nama_ketupel = $request->nama_ketupel;
-            $s->nrp_ketupel = $request->nrp_ketupel;
-            $s->angkatan_c = $request->angkatan_c;
-            $s->jabatan = $request->jabatan;
+            $s->id_jenis = $request->input['id_jenis'];
+            $s->nama_pemohon = $request->input['nama_pemohon'];
+            $s->nrp_pemohon = $request->input['nrp_pemohon'];
+            $s->tanggal_waktu_mulai = $request->input['waktu_mulai'];
+            $s->tanggal_waktu_selesai = $request->input['waktu_selesai'];
+            $s->kegiatan = $request->input['kegiatan'];
+            $s->tanggal_waktu_pelaksanaan = $request->input['tanggal_pelaksanaan'];
+            $s->tempat_pelaksanaan = $request->input['tempat_pelaksanaan'];
+            $s->tempat_pinjam = $request->input['tempat_pinjam'];
+            $s->tujuan = $request->input['tujuan'];
+            $s->nama_ketupel = $request->input['nama_ketupel'];
+            $s->nrp_ketupel = $request->input['nrp_ketupel'];
+            $s->angkatan_c = $request->input['angkatan_c'];
+            $s->jabatan = $request->input['jabatan'];
             if ($id_surat=='JS001' || $id_surat=='JS002') $s->perihal = "Surat Keterangan";
             else if ($id_surat=='JS003') $s->perihal="Permohonan Izin Keramaian";
             else if ($id_surat=='JS004') $s->perihal="Permohonan Izin Peminjaman Alat Musik";
@@ -171,8 +175,9 @@ class PemesananController extends Controller
         $p = new Pemesanan();
             $p->no_book = $no_book;
             $p->id_surat = $id_surat;
-            $p->nama_pemesan = $request->nama_pemohon;
-            $p->nrp_pemesan = $request->nrp_pemohon;
+            $p->nama_pemesan = $request->input['nama_pemohon'];
+            $p->nrp_pemesan = $request->input['nrp_pemohon'];
+            $p->tanggal_pemesanan = $tgl;
             $p->save();
 
         return $no_book;
@@ -199,7 +204,8 @@ class PemesananController extends Controller
 //        $pinjam_srt = json_encode($pinjam_srt);
 //        return $pinjam_srt;
         //dd($pinjam_srt);
-        return view('listacc', compact('pinjam_srt'));
+        $pinjam_srt = json_encode($pinjam_srt);
+        return $pinjam_srt;
     }
 
     public function acc($no_book)
@@ -245,40 +251,48 @@ class PemesananController extends Controller
         elseif ($bulan=='11') $bln="XI";
         elseif ($bulan=='12') $bln="XII";
 //      BELOM BISAAAAAA!!!!!!!
-        $suratB = DB::table('rekap_surats')
-            ->join('surats', 'rekap_surats.id_surat', '=', 'surats.id_surat')
-            ->join('jenis_surats', 'jenis_surats.id_jenis', '=', 'surats.id_jenis')
-            ->where('jenis_surats.id_jenis','=',"JS006")->get();
+//        $suratB = DB::table('rekap_surats')
+//            ->join('surats', 'rekap_surats.id_surat', '=', 'surats.id_surat')
+//            ->join('jenis_surats', 'jenis_surats.id_jenis', '=', 'surats.id_jenis')
+//                ->select('rekap_surats.nomor_surat')
+//            ->where('jenis_surats.id_jenis','=',"JS006")->get();
+//
+//            $suratA = DB::table('rekap_surats')
+//                ->join('surats', 'rekap_surats.id_surat', '=', 'surats.id_surat')
+//                ->join('jenis_surats', 'jenis_surats.id_jenis', '=', 'surats.id_jenis')
+//                ->select('rekap_surats.nomor_surat')
+//                ->where('jenis_surats.id_jenis','<>',"JS006")->get();
+//
+//        if ($tipe=='A') {
+//
+//                $nomor_surat = $suratA->max('nomor_surat');
+///           echo $nomor_surat;
+//
+//        }
+//        else if ($tipe=='B') {
+//            $nomor_surat = $suratB->max('nomor_surat');
+//        }
 
-            $suratA = DB::table('rekap_surats')
-                ->join('surats', 'rekap_surats.id_surat', '=', 'surats.id_surat')
-                ->join('jenis_surats', 'jenis_surats.id_jenis', '=', 'surats.id_jenis')
-                ->select('rekap_surats.id_rekap')
-                ->where('jenis_surats.id_jenis','<>',"JS006")->get();
-//        dd($suratA);
-        $col = DB::table('rekap_surats');
-        if ($tipe=='A') {
 
-                $nomor_surat = $suratA->max('nomor_surat');
-//            echo $nomor_surat;
-
-        }
-        else if ($tipe=='B') {
-            $nomor_surat = $suratB->max('nomor_surat');
-        }
+        $nomor_surat = DB::table('rekap_surats')->max('nomor_surat');
 
         $nomor = explode("/", $nomor_surat);
 
         (int)$nomor[0] += 1;
         $nosurat = $nomor[0]."/".$tipe."/HMTC/".$bln."/".$tahun;
-        echo $nosurat;
-        $rk = new Rekap_surat();
-            $rk->id_rekap = $id_rekap;
-            $rk->id_surat = $id_srt;
-            $rk->nomor_surat = $nosurat;
-            $rk->save();
 
-        return redirect('/listSurat');
+        $rekap = new Rekap_surat();
+            $rekap->id_rekap = $id_rekap;
+            $rekap->id_surat = $id_srt;
+            $rekap->nomor_surat = $nosurat;
+            $rekap->save();
+
+//        $rk = new Rekap_surat();
+//            $rk->id_rekap = $id_rekap;
+//            $rk->id_surat = $id_srt;
+//            $rk->nomor_surat = $nosurat;
+//            $rk->save();
+
     }
 
 

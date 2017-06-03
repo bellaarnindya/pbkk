@@ -19,7 +19,7 @@ Route::get('/admin', function () {
     return view('admin');
 });
 
-Route::post('/pesanSurat', 'testController@pesanSurat');
+Route::post('/pesanSurat', 'PemesananController@pesansurat');
 Route::post('/pesanInven', 'PemesananController@pinjaminventaris');
 Route::post('/cekInven', 'PemesananController@cekbookinginv');
 Route::get('/listInven', 'PemesananController@listinv');

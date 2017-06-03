@@ -1,4 +1,4 @@
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
     <head>
         <link rel="stylesheet" type="text/css" href="{{url('')}}/css/kube.min.css">
         <link rel="stylesheet" type="text/css" href="{{url('')}}/css/font-awesome.min.css">
@@ -75,7 +75,7 @@
                                             <form method="post" v-on:submit.prevent="statusCheck('inven')">
                                                 <input name="kodeBookingInven" v-model="kodeBookingInven" type="text" placeholder="Kode Booking Inventaris" style="margin-bottom:0.7rem">
 <!--                                                <a href="#!" class="button primary w100" @click="statusCheck()">Periksa Kode Booking Inventaris</a>-->
-                                                <button type="submit" class="button primary w100">Periksa Kode Booking Inventaris</a>
+                                                <button type="submit" class="button primary w100">Periksa Kode Booking Inventaris</button>
                                             </form>
                                         </center>
                                     </div>
@@ -107,7 +107,7 @@
                                 </div>
                                 <div v-else-if="!isChecking">
                                     <h5>Formulir Pembuatan Surat</h5>
-                                    <form method="post" v-on:submit.prevent="mintaSurat">
+                                    <form method="post" v-on:submit.prevent="mintaSurat" action>
                                         <div class="form-item">
                                             <label>Perihal Surat</label>
                                             <select name="jenis_surat" class="small" v-model="suratForm.id_jenis">
@@ -220,14 +220,14 @@
                                                     <label>Tanggal Kegiatan</label>
                                                     <input name="tanggal_pelaksanaan" v-model="suratForm.tanggal_pelaksanaan" type="date" style="margin-bottom:1rem" class="small" placeholder="Tanggal Kegiatan">
                                                 </div>
-                                                <div class="col col-2">
-                                                    <label>Waktu Mulai</label>
-                                                    <input name="waktu_mulai" v-model="suratForm.waktu_mulai" type="time" style="margin-bottom:1rem" class="small" placeholder="Waktu Mulai">
-                                                </div>
-                                                <div class="col col-2">
-                                                    <label>Waktu Selesai</label>
-                                                    <input name="waktu_selesai" v-model="suratForm.waktu_selesai" type="time" style="margin-bottom:1rem" class="small" placeholder="Waktu Mulai">
-                                                </div>
+                                                {{--<div class="col col-2">--}}
+                                                    {{--<label>Waktu Mulai</label>--}}
+                                                    {{--<input name="waktu_mulai" v-model="suratForm.waktu_mulai" type="time" style="margin-bottom:1rem" class="small" placeholder="Waktu Mulai">--}}
+                                                {{--</div>--}}
+                                                {{--<div class="col col-2">--}}
+                                                    {{--<label>Waktu Selesai</label>--}}
+                                                    {{--<input name="waktu_selesai" v-model="suratForm.waktu_selesai" type="time" style="margin-bottom:1rem" class="small" placeholder="Waktu Mulai">--}}
+                                                {{--</div>--}}
                                                 <div class="col col-5">
                                                     <label>Nama Penanggungjawab</label>
                                                     <input name="nama_ketupel" v-model="suratForm.nama_ketupel" type="text" style="margin-bottom:1rem" class="small" placeholder="Nama Penanggungjawab">

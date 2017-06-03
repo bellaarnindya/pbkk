@@ -4,7 +4,7 @@ var app = new Vue({
         section: 'inven',
         pinjam: [],
         kembali: [],
-        surat: []
+        surat: [],
     },
     methods: {
         redraw: function(){
